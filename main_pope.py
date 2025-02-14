@@ -46,7 +46,7 @@ def parse_args():
     parser.add_argument("--pope-type", type=str, default="popular", help="")
     parser.add_argument("--conv_model", type=str, default="llava_llama_3", help="")
     # The path of the image file
-    parser.add_argument("--data_path", type=str, default="/home/yzq/DATA/coco/val2014", help="data path")
+    parser.add_argument("--data_path", type=str, help="data path")
     parser.add_argument('--do_augmentation', type=int, default=0)
     parser.add_argument("--calibrate", type=int, default=0)
     parser.add_argument("--num_samples", type=int, default=500)
