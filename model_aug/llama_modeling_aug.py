@@ -12,7 +12,6 @@ from transformers.cache_utils import Cache
 from transformers.utils.logging import logging, get_logger
 from modify_head_idx.llama3_1.mask_method_0_sample_900_percent_100 import *
 
-MASK_METHOD = int(os.environ.get("MASK_METHOD", 0))
 EPSILON = float(os.environ.get("EPSILON", 1))
 BETA = float(os.environ.get("BETA", 0))
 THRES = float(os.environ.get("THRES", 0))
@@ -81,7 +80,7 @@ def atten_process_cal(key_states, head_comb=None):
     for idx in comb_indices:
         head_indices.extend(map_index_to_range(idx))
 
-    key_states[0, head_indices] *= 0
+    key_states[0, head_indices] *= EPSILON
     return key_states
 
 def atten_aug_forward_eval_llama(
