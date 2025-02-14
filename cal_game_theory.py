@@ -47,9 +47,9 @@ def compute_harsanyi_dividend_score(args, idx):
 
     w_values = compute_harsanyi_dividends(v_values)
     if args.task_type == "classification":
-        output_filepath = f"/mnt/petrelfs/quxiaoye/yuzengqi/OUR_LLM/harsanyi_dividend_value_cf/numLayer_{NUM_LAYER}/harsanyi_dividend_score_sampleIdx_{idx}.log"
+        output_filepath = f"/mnt/petrelfs/quxiaoye/yuzengqi/GAC/harsanyi_dividend_value_cf/numLayer_{NUM_LAYER}/harsanyi_dividend_score_sampleIdx_{idx}.log"
     else:
-        output_filepath = f"/mnt/petrelfs/quxiaoye/yuzengqi/OUR_LLM/harsanyi_dividend_value_mc/numLayer_{NUM_LAYER}/harsanyi_dividend_score_sampleIdx_{idx}.log"
+        output_filepath = f"/mnt/petrelfs/quxiaoye/yuzengqi/GAC/harsanyi_dividend_value_mc/numLayer_{NUM_LAYER}/harsanyi_dividend_score_sampleIdx_{idx}.log"
     os.makedirs(os.path.dirname(output_filepath), exist_ok=True)
     with open(output_filepath, 'a') as file:
         for head_comb, log_score in w_values.items():
@@ -68,7 +68,7 @@ def compute_harsanyi_dividend_score_question_answer(args, idx):
         return
 
     w_values = compute_harsanyi_dividends(v_values)
-    output_filepath = f"/mnt/petrelfs/quxiaoye/yuzengqi/OUR_LLM/harsanyi_dividend_value_qa/numLayer_{NUM_LAYER}/harsanyi_dividend_score.log"
+    output_filepath = f"/mnt/petrelfs/quxiaoye/yuzengqi/GAC/harsanyi_dividend_value_qa/numLayer_{NUM_LAYER}/harsanyi_dividend_score.log"
 
     os.makedirs(os.path.dirname(output_filepath), exist_ok=True)
     with open(output_filepath, 'a') as file:
@@ -125,9 +125,9 @@ def compute_shapley_value_score(args, idx):
     v = read_value_function(file_path)
     shapley_values = compute_shapley_values(v)
     if args.task_type == "classification":
-        output_filepath = f"/mnt/petrelfs/quxiaoye/yuzengqi/OUR_LLM/shapley_value_cf/numLayer_{NUM_LAYER}/shapley_score_sampleIdx_{idx}.log"
+        output_filepath = f"/mnt/petrelfs/quxiaoye/yuzengqi/GAC/shapley_value_cf/numLayer_{NUM_LAYER}/shapley_score_sampleIdx_{idx}.log"
     else:
-        output_filepath = f"/mnt/petrelfs/quxiaoye/yuzengqi/OUR_LLM/shapley_value_mc/numLayer_{NUM_LAYER}/shapley_score_sampleIdx_{idx}.log"
+        output_filepath = f"/mnt/petrelfs/quxiaoye/yuzengqi/GAC/shapley_value_mc/numLayer_{NUM_LAYER}/shapley_score_sampleIdx_{idx}.log"
     os.makedirs(os.path.dirname(output_filepath), exist_ok=True)
     with open(output_filepath, 'a') as file:
         for i, phi in enumerate(shapley_values):
@@ -137,7 +137,7 @@ def compute_shapley_value_score_question_answer(args, idx):
     file_path = args.game_theory_result_path + f"/numLayer_{NUM_LAYER}/harsanyi_dividend_headComb.log"
     v = read_value_function(file_path)
     shapley_values = compute_shapley_values(v)
-    output_filepath = f"/mnt/petrelfs/quxiaoye/yuzengqi/OUR_LLM/shapley_value_qa/numLayer_{NUM_LAYER}/shapley_score.log"
+    output_filepath = f"/mnt/petrelfs/quxiaoye/yuzengqi/GAC/shapley_value_qa/numLayer_{NUM_LAYER}/shapley_score.log"
     os.makedirs(os.path.dirname(output_filepath), exist_ok=True)
     with open(output_filepath, 'a') as file:
         for i, phi in enumerate(shapley_values):

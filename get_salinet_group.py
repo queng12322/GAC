@@ -17,7 +17,7 @@ if __name__=="__main__":
     # Number of game theory samples from each dataset
     parser.add_argument('--num_samples', type=int, default=900)
     # Result output file.
-    parser.add_argument('--output_dir', type=str, default='/mnt/petrelfs/quxiaoye/yuzengqi/OUR_LLM_plus/calibration_results/cal.log')
+    parser.add_argument('--output_dir', type=str)
     # Type of task to be evaluated.
     parser.add_argument('--task_type', type=str, default='multiple_choice')
     # Intermediate result output address for game theory.

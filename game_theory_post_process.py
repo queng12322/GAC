@@ -7,23 +7,23 @@ import pdb
 def post_process(args, data_len):
     # Set the file path.
     if args.task_type == "classification":
-        file_path_harsanyi = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_LLM/harsanyi_dividend_value_cf"
-        file_path_shapley = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_LLM/shapley_value_cf"
-        output_folder_harsanyi = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_LLM/harsanyi_dividend_value_cf/ave_harsanyi_dividend_value"
-        output_folder_shapley = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_LLM/shapley_value_cf/ave_shapley_value"
-        result_file_path = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_LLM/result_cf"
+        file_path_harsanyi = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/harsanyi_dividend_value_cf"
+        file_path_shapley = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/shapley_value_cf"
+        output_folder_harsanyi = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/harsanyi_dividend_value_cf/ave_harsanyi_dividend_value"
+        output_folder_shapley = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/shapley_value_cf/ave_shapley_value"
+        result_file_path = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/result_cf"
     elif args.task_type == "multiple_choice":
-        file_path_harsanyi = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_LLM/harsanyi_dividend_value_mc"
-        file_path_shapley = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_LLM/shapley_value_mc"
-        output_folder_harsanyi = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_LLM/harsanyi_dividend_value_mc/ave_harsanyi_dividend_value"
-        output_folder_shapley = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_LLM/shapley_value_mc/ave_shapley_value"
-        result_file_path = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_LLM/result_mc"
+        file_path_harsanyi = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/harsanyi_dividend_value_mc"
+        file_path_shapley = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/shapley_value_mc"
+        output_folder_harsanyi = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/harsanyi_dividend_value_mc/ave_harsanyi_dividend_value"
+        output_folder_shapley = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/shapley_value_mc/ave_shapley_value"
+        result_file_path = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/result_mc"
     elif args.task_type == "question_answer":
-        file_path_harsanyi = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_LLM/harsanyi_dividend_value_qa"
-        file_path_shapley = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_LLM/shapley_value_qa"
-        output_folder_harsanyi = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_LLM/harsanyi_dividend_value_qa/ave_harsanyi_dividend_value"
-        output_folder_shapley = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_LLM/shapley_value_qa/ave_shapley_value"
-        result_file_path = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_LLM/result_qa"
+        file_path_harsanyi = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/harsanyi_dividend_value_qa"
+        file_path_shapley = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/shapley_value_qa"
+        output_folder_harsanyi = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/harsanyi_dividend_value_qa/ave_harsanyi_dividend_value"
+        output_folder_shapley = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/shapley_value_qa/ave_shapley_value"
+        result_file_path = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/result_qa"
     os.makedirs(output_folder_harsanyi, exist_ok=True)
     os.makedirs(output_folder_shapley, exist_ok=True)
     os.makedirs(result_file_path, exist_ok=True)

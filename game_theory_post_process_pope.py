@@ -6,17 +6,17 @@ import pdb
 
 def post_process_pope(args, data_len):
     if args.task_type == "pope":
-        file_path_harsanyi = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_VLM_COCO_adversarial/harsanyi_dividend_value_pope"
-        file_path_shapley = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_VLM_COCO_adversarial/shapley_value_pope"
-        output_folder_harsanyi = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_VLM_COCO_adversarial/harsanyi_dividend_value_pope/ave_harsanyi_dividend_value"
-        output_folder_shapley = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_VLM_COCO_adversarial/shapley_value_pope/ave_shapley_value"
-        result_file_path = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_VLM_COCO_adversarial/result_pope"
+        file_path_harsanyi = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/harsanyi_dividend_value_pope"
+        file_path_shapley = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/shapley_value_pope"
+        output_folder_harsanyi = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/harsanyi_dividend_value_pope/ave_harsanyi_dividend_value"
+        output_folder_shapley = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/shapley_value_pope/ave_shapley_value"
+        result_file_path = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/result_pope"
     elif args.task_type == "mme":
-        file_path_harsanyi = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_VLM_COCO_adversarial/harsanyi_dividend_value_mme"
-        file_path_shapley = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_VLM_COCO_adversarial/shapley_value_mme"
-        output_folder_harsanyi = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_VLM_COCO_adversarial/harsanyi_dividend_value_mme/ave_harsanyi_dividend_value"
-        output_folder_shapley = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_VLM_COCO_adversarial/shapley_value_mme/ave_shapley_value"
-        result_file_path = "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_VLM_COCO_adversarial/result_mme"
+        file_path_harsanyi = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/harsanyi_dividend_value_mme"
+        file_path_shapley = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/shapley_value_mme"
+        output_folder_harsanyi = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/harsanyi_dividend_value_mme/ave_harsanyi_dividend_value"
+        output_folder_shapley = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/shapley_value_mme/ave_shapley_value"
+        result_file_path = "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/result_mme"
     os.makedirs(output_folder_harsanyi, exist_ok=True)
     os.makedirs(output_folder_shapley, exist_ok=True)
     os.makedirs(result_file_path, exist_ok=True)

@@ -35,9 +35,9 @@ from cal_game_theory import *
 from game_theory_post_process import *
 
 POPE_PATH = {
-    "random": "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_VLM_COCO_adversarial/data/POPE/coco/coco_pope_random.json",
-    "popular": "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_VLM_COCO_adversarial/data/POPE/coco/coco_pope_popular.json",
-    "adversarial": "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_VLM_COCO_adversarial/data/POPE/coco/coco_pope_adversarial.json",
+    "random": "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/data/POPE/coco/coco_pope_random.json",
+    "popular": "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/data/POPE/coco/coco_pope_popular.json",
+    "adversarial": "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/data/POPE/coco/coco_pope_adversarial.json",
 }
 
 NUM_LAYER = int(os.environ.get("NUM_LAYER", -1))
@@ -48,11 +48,11 @@ def parse_args():
     parser.add_argument("--model_path", type=str, default="/mnt/petrelfs/quxiaoye/yuzengqi/MODEL/llava-v1.6-mistral-7b-hf", help="")
     parser.add_argument("--pope-type", type=str, default="popular", help="")
     parser.add_argument("--conv_model", type=str, default="llava_mistral_instruct", help="")
-    parser.add_argument("--data_path", type=str, default="/home/yzq/DATA/coco/val2014", help="data path")
+    parser.add_argument("--data_path", type=str, help="data path")
     parser.add_argument('--do_augmentation', type=int, default=0)
     parser.add_argument("--calibrate", type=int, default=0)
     parser.add_argument("--num_samples", type=int, default=500)
-    parser.add_argument("--game_theory_result_path", type=str, default="/home/yzq/OUR/game_theory_result/")
+    parser.add_argument("--game_theory_result_path", type=str)
     parser.add_argument("--task_type", type=str)
     parser.add_argument(
         "--options",
