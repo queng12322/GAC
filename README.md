@@ -11,10 +11,6 @@ Specifically, GAC selectively retains heads demonstrating significant cooperativ
 Comprehensive experiments across 17 benchmarks demonstrate the effectiveness of our proposed GAC and its superior generalization capabilities across diverse model families, scales, and modalities.
 Crucially, the discovered interaction phenomena offer a path toward a deeper understanding of the behaviors of LLMs.
 
-# <p align="center">
-# <img src="./figure/game_framework.png" width="500px"></img>
-# </p>
-
 ## Installation
 
 Follow the steps below to set up the environment and install the necessary dependencies:
