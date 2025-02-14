@@ -29,7 +29,7 @@ do
     export THRES=0.1
     export MODIFIED_LAYER="0"
     
-    nohup python game_theory_cal.py \
+    nohup python game_theory_pope.py \
             --model_path '/mnt/petrelfs/quxiaoye/yuzengqi/MODEL/llava-v1.6-mistral-7b-hf' \
             --do_augmentation 1 \
             --data_path /mnt/petrelfs/quxiaoye/yuzengqi/DATA/coco/val2014 \

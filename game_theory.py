@@ -1,11 +1,8 @@
-import json
 import os
 import time 
 import argparse
 import torch
-import math
 import torch.nn.functional as F
-import copy
 import numpy as np
 from datasets import load_dataset
 import re
@@ -14,26 +11,16 @@ from collections import Counter
 from tqdm import tqdm
 from torch import nn
 import random
-import warnings
-import transformers
 from typing import List, Optional, Tuple, Union
 from transformers import LlamaTokenizer,AutoTokenizer,MistralForCausalLM
 from transformers import LlamaTokenizer,AutoTokenizer
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from transformers.models.llama.modeling_llama import LlamaForCausalLM, LlamaAttention
-
-from model_aug.llama_modeling_aug import atten_aug_forward_eval_llama, get_aug_indices, get_attention_sink_idx, clear_attention_sink_idx, atten_aug_forward_cal_llama
-
+from model_aug.llama_modeling_aug import *
 from utils.data_utils import *
 from utils.data_utils import choices
-
-import huggingface_hub
-
 import pdb
-
-from cal_game_theory import compute_harsanyi_dividend_score, compute_shapley_value_score, compute_harsanyi_dividend_score_question_answer, compute_shapley_value_score_question_answer
-
-from game_theory_post_process import post_process
+from tools.compute_harsanyi_dividends import *
 
 NUM_LAYER = int(os.environ.get("NUM_LAYER", -1))
 
@@ -49,7 +36,7 @@ def set_random_seed(seed):
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
 
-def load(ckpt_dir, model_type):
+def load(ckpt_dir):
     tokenizer = AutoTokenizer.from_pretrained(
         ckpt_dir,
         use_fast=False,
@@ -159,7 +146,7 @@ pdb.set_trace = lambda: None
 
 def main(args):
     set_random_seed(42)
-    model, tokenizer = load(args.ckpt_dir, args.model_type)
+    model, tokenizer = load(args.ckpt_dir)
     if args.calibrate:
         print("---------------------Calibration---------------------")
         calibration_dataset = get_calibration_dataset(args.task_type, tasks[args.task_type], args.num_samples)
@@ -185,7 +172,6 @@ def main(args):
     count = 0
     model.eval()
     all_input_ids = list()
-    pdb.set_trace()
     with torch.no_grad():
         if args.task_type == "classification":
             for idx, batch_input in enumerate(tqdm(batch_split(final_dataset_prompt, batch_size))):
@@ -199,10 +185,7 @@ def main(args):
                 for head_comb in range(256):
                     path_name = f"/numLayer_{NUM_LAYER}/harsanyi_dividend_headComb_sampleIdx_{idx}.log"
                     game_theory_result_path = args.game_theory_result_path + path_name
-
-                    pdb.set_trace()
                     logits = model(**encoded_inputs, head_comb=head_comb).logits
-                    pdb.set_trace()
                     os.makedirs(os.path.dirname(game_theory_result_path), exist_ok=True)
                     logits = logits[0][-1]
 
@@ -217,9 +200,7 @@ def main(args):
 
                 count += 1
                 compute_harsanyi_dividend_score(args, idx)
-                compute_shapley_value_score(args, idx) 
         elif args.task_type == "multiple_choice":
-            pdb.set_trace()
             answers = []
             for idx, batch_input in enumerate(tqdm(batch_split(final_dataset_prompt, batch_size))):
                 encode_inputs = prepare_input(tokenizer, batch_input)
@@ -241,7 +222,6 @@ def main(args):
                         )
                 count += 1
                 compute_harsanyi_dividend_score(args, idx)
-                compute_shapley_value_score(args, idx) 
             print("answers", set(answers))
         elif args.task_type == "question_answer":
             num_sample = len(final_dataset)
@@ -272,7 +252,6 @@ def main(args):
                     total_exact += exact
                     total_f1 += f1
                     count += 1
-                pdb.set_trace()
                 average_exact = total_exact / num_sample
                 average_f1 = total_f1 / num_sample
                 # Note, replace this value with the average F1 score under meaningless input.
@@ -282,8 +261,6 @@ def main(args):
                 with open(game_theory_result_path, 'a') as file:
                     file.write(f"{head_comb} {average_f1:.6f}\n")
             compute_harsanyi_dividend_score_question_answer(args, idx)
-            compute_shapley_value_score_question_answer(args, idx) 
-    pdb.set_trace()
     end_time = time.time()
     compute_metrics(args, correct_counts, total_num = len(final_dataset))
     print("Total run time: %.2f" % (end_time - start_time))
@@ -312,14 +289,6 @@ if __name__=="__main__":
     args = parser.parse_args()
     print("args", args)
     # After the game theory computation is complete, execute this code to obtain the heads that need adjustment.
-    '''
-    if args.task_type == "classification":
-        post_process(args, 6550)
-    elif args.task_type == "multiple_choice":
-        post_process(args, 5400)
-    elif args.task_type == "question_answer":
-        post_process(args, 200)
-    '''
 
     # If you want to use other types of models, please replace this part.
     if args.do_augmentation:

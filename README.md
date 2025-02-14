@@ -22,7 +22,7 @@ conda create --name GAC python=3.9
 conda activate GAC
 ```
 
-2. Install required dependencies: Make sure you have pip installed, then run:
+2. Install the required dependencies: Ensure that pip is installed, then execute the following command:
 
 ```
 pip install -r requirements.txt
@@ -30,42 +30,42 @@ pip install -r requirements.txt
 
 ## Run GAC
 
-### Step 1. For each layer, calculate the Harsanyi dividends between players.
+### Step 1. Calculate Harsanyi Dividends Between Players for Each Layer
 
-The first step of our proposed GAC is to identify groups of attention heads that exhibit significant positive Harsanyi dividends.
+The first step in the GAC framework involves identifying groups of attention heads that exhibit significant positive Harsanyi dividends.
 
 #### 1.1 Classification Task 
-Use the following command to perform this search process on classification datasets:
+To perform this search on classification datasets, run the following command:
 
 ```
-bash scripts/calibration_cf.sh
+bash scripts/compute_game_theory_cf.sh
 ```
 
 #### 1.2 Multiple Choice Task
 
-Use the following command to perform this search process on multiple choice datasets:
+For multiple-choice datasets, use the following command:
 
 ```
-bash scripts/calibration_mc.sh
+bash scripts/compute_game_theory_mc.sh
 ```
 
 #### 1.3 Question Answer Task
-Use the following command to perform this search process on question answer datasets:
+To conduct this search on question-answering datasets, execute the following command:
 
 ```
-bash scripts/calibration_qa.sh
+bash scripts/compute_game_theory_qa.sh
 ```
 
 #### 1.4 POPE Task
-Use the following command to perform this search process on MLLM's POPE datasets: 
+For MLLM's POPE datasets, run the following command:
 
 ```
-bash scripts/calibration_pope.sh
+bash scripts/compute_game_theory_pope.sh
 ```
 
-### Step 2. Identify salient group.
+### Step 2. Identify the Salient Group
 
-After calculating the Harsanyi Dividend, we use the following command to select the salient group:
+After calculating the Harsanyi dividends, use the following command to select the salient group:
 
 ```
 bash scripts/get_salient_group.sh [eval_task_type]
@@ -73,9 +73,9 @@ bash scripts/get_salient_group.sh [eval_task_type]
 
 ### Step 3. Evaluation
 
-To alleviate the competition between attention heads that leads to negative Harsanyi dividends, we apply fine-grained distributional adjustments to the heads outside the salient group, thereby smoothing excessive attention weight allocations.
+To mitigate the competition between attention heads that results in negative Harsanyi dividends, we apply fine-grained distributional adjustments to the heads outside the salient group. This process smooths out excessive attention weight allocations.
 
-Use the following command to complete this process:
+Run the following command to complete this process:
 
 ```
 bash evaluation.sh [augmentations] [dataset_names] [model_type] [model_path] [eval_task_type]
@@ -83,14 +83,14 @@ bash evaluation.sh [augmentations] [dataset_names] [model_type] [model_path] [ev
 
 ## Directory Structure
 
-Here is an overview of the key directories and files in this repository:
+Below is an overview of the key directories and files in this repository:
 
-* llava:  Used to load the Llava Next series models
-* model_aug:  Contains the core methods of our GAC
-* modify_head_idx: The position where the salient group is defined.
-* POPE: Question and answer pairs related to image and text data.
-* transformers: Core code of the transformers library.
-* utils: Defines methods for data loading.
+* model_aug:  Contains the core methods for our GAC framework.
+* transformers: Includes the core code of the transformers library.
+* tools: Contains code for calculating intermediate results.
+* utils: Defines methods for data loading and preprocessing.
+* game_theory.py: The main code for calculating game theory-related metrics.
+* main.py: The central code for model evaluation.
 
 
 ## Datasets and Model
@@ -98,7 +98,22 @@ Here is an overview of the key directories and files in this repository:
 Here's where you can download datasets and model for our Experiment.
 
 ### Datasets
-
+* sst2
+* sst5
+* MR
+* SUBJ
+* AGNews
+* TREC
+* CB
+* BoolQ
+* hellaswag
+* ARCE
+* PIQA
+* ARCC
+* OB
+* CQA
+* SQuADv1
+* SQuADv2
 * [MSCOCO 2014 dataset](https://cocodataset.org/#home)
 * [GQA dataset](https://cs.stanford.edu/people/dorarad/gqa/download.html)
 

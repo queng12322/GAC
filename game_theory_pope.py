@@ -8,7 +8,6 @@ import torch
 import torch.backends.cudnn as cudnn
 from tqdm import tqdm
 import pdb
-
 from transformers.models.mistral.modeling_mistral import MistralAttention
 import matplotlib.pyplot as plt
 import numpy as np
@@ -16,23 +15,17 @@ import seaborn as sns
 import time 
 import json
 from PIL import Image
-
 from llava.model.builder import load_pretrained_model
 from llava.utils import disable_torch_init
 from llava.mm_utils import tokenizer_image_token, get_model_name_from_path, KeywordsStoppingCriteria, process_images
-
 from llava.conversation import conv_templates, SeparatorStyle
 from llava.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN
-
 import copy
 from itertools import chain, combinations
 import sys
-
 from model_aug.llama_modeling_aug import *
-
 from transformers import LlavaNextProcessor, LlavaNextForConditionalGeneration
-from cal_game_theory import *
-from game_theory_post_process import *
+from tools.compute_harsanyi_dividends import *
 
 POPE_PATH = {
     "random": "/mnt/petrelfs/quxiaoye/yuzengqi/GAC/data/POPE/coco/coco_pope_random.json",
@@ -41,7 +34,6 @@ POPE_PATH = {
 }
 
 NUM_LAYER = int(os.environ.get("NUM_LAYER", -1))
-
 
 def parse_args():
     parser = argparse.ArgumentParser(description="POPE-Adv evaluation on LVLMs.")
@@ -64,7 +56,6 @@ def parse_args():
     args = parser.parse_args()
     return args
 
-
 def setup_seeds(seed):
     random.seed(seed)
     np.random.seed(seed)
@@ -72,7 +63,6 @@ def setup_seeds(seed):
 
     cudnn.benchmark = False
     cudnn.deterministic = True
-
 
 def print_acc(args, pred_list, label_list):
     pos = 1
@@ -120,7 +110,6 @@ def recorder(line, pred_list):
     
     return pred_list
 
-
 pdb.set_trace = lambda: None
 
 def main():
@@ -134,15 +123,6 @@ def main():
     else:
         print("-------------------No Attention Aug-----------------")
     setup_seeds(42)
-
-    '''
-    if args.task_type == "pope":
-        post_process(args, 500)
-    elif args.task_type == "mme":
-        post_process(args, 474)
-
-    return
-    '''
 
     print('Initializing Model')
     processor = LlavaNextProcessor.from_pretrained(args.model_path)
@@ -204,7 +184,6 @@ def main():
                 for head_comb in range(256):
                     path_name = f"/numLayer_{NUM_LAYER}/harsanyi_dividend_headComb_sampleIdx_{idx}.log"
                     game_theory_result_path = args.game_theory_result_path + path_name
-                    pdb.set_trace()
                     output = model.generate(
                         **inputs,
                         max_new_tokens=1,
@@ -213,12 +192,10 @@ def main():
                         game_theory_result_path=game_theory_result_path,
                         pad_token_id=processor.tokenizer.eos_token_id,
                     )
-                    pdb.set_trace()
                     outputs = processor.decode(output[0][input_token_len:], skip_special_tokens=True)
                     pred_list = recorder(outputs, pred_list)
 
         compute_harsanyi_dividend_score(args, idx)
-        compute_shapley_value_score(args, idx)
 
     if len(pred_list) != 0:
         print_acc(args, pred_list, label_list)

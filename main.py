@@ -1,56 +1,37 @@
-import json
-import os
 import time 
 import argparse
 import torch
-import math
 import torch.nn.functional as F
-import copy
 import numpy as np
 from datasets import load_dataset
 from collections import Counter
 import re
-
 from tqdm import tqdm
-from torch import nn
 import random
-import warnings
-import transformers
-from typing import List, Optional, Tuple, Union
 from transformers import LlamaTokenizer,AutoTokenizer,MistralForCausalLM
 from transformers import LlamaTokenizer,AutoTokenizer
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from transformers.models.llama.modeling_llama import LlamaForCausalLM, LlamaAttention
-
 import string
-
 from utils.data_utils import *
 from utils.data_utils import choices
-
-import huggingface_hub
-
 import pdb
-
-from cal_game_theory import compute_harsanyi_dividend_score, compute_shapley_value_score
-from game_theory_post_process import post_process, process_shapley
-
-from model_aug.llama_modeling_aug import atten_aug_forward_eval_llama, get_aug_indices, get_attention_sink_idx, clear_attention_sink_idx, atten_aug_forward_cal_llama
+from tools.compute_harsanyi_dividends import *
+from model_aug.llama_modeling_aug import *
 
 tasks = {
     'classification': ['sst2', 'sst5', 'MR', 'SUBJ', 'AGNews', 'TREC', 'CB', 'BoolQ'],
     'multiple_choice': ['hellaswag', 'ARCE', 'PIQA', 'ARCC', 'OB', 'CQA'],
     'question_answer': ['SQuADv1', 'SQuADv2']
 }
-
-vis_data = []
-    
+ 
 def set_random_seed(seed):
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
 
-def load(ckpt_dir, model_type):
+def load(ckpt_dir):
     tokenizer = AutoTokenizer.from_pretrained(
         ckpt_dir,
         use_fast=False,
@@ -122,7 +103,6 @@ def compute_metrics(args, results: dict, total_num: int) -> float:
     return total_acc/total_num
 
 def normalize_answer(s):
-    """标准化答案文本。"""
     def remove_punctuation(text):
         return ''.join(ch for ch in text if ch not in set(string.punctuation))
 
@@ -148,7 +128,6 @@ def compute_f1(a_gold, a_pred):
     common = Counter(gold_tokens) & Counter(pred_tokens)
     num_same = sum(common.values())
     if len(gold_tokens) == 0 or len(pred_tokens) == 0:
-        # 如果标准答案或预测答案为空
         return int(gold_tokens == pred_tokens)
     if num_same == 0:
         return 0
@@ -159,7 +138,7 @@ def compute_f1(a_gold, a_pred):
 
 def main(args):
     set_random_seed(42)
-    model, tokenizer = load(args.ckpt_dir, args.model_type)
+    model, tokenizer = load(args.ckpt_dir)
     get_aug_indices()
     if args.calibrate:
         print("---------------------Calibration---------------------")
@@ -248,7 +227,6 @@ def main(args):
             pdb.set_trace()
             average_exact = float(total_exact) / float(num_sample)
             average_f1 = float(total_f1) / float(num_sample)
-            # 注意head_comb = 0时，f1 score需要为0
             print("F1: %.4f" % (average_f1))
             print("EM: %.4f" % (average_exact))
     end_time = time.time()

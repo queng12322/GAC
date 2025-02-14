@@ -7,27 +7,22 @@ from sympy import N
 import torch
 import torch.backends.cudnn as cudnn
 from tqdm import tqdm
-
 import pdb
 from transformers.models.llama.modeling_llama import LlamaAttention
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
-import time 
 import json
 from PIL import Image
 from transformers.models.mistral.modeling_mistral import MistralAttention
 from llava.model.builder import load_pretrained_model
 from llava.utils import disable_torch_init
 from llava.mm_utils import tokenizer_image_token, get_model_name_from_path, KeywordsStoppingCriteria, process_images
-
 from llava.conversation import conv_templates, SeparatorStyle
 from llava.constants import IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN
 import copy
 import sys
-
 from model_aug.llama_modeling_aug import *
-
 from transformers import LlavaNextProcessor, LlavaNextForConditionalGeneration
 from transformers import AutoProcessor
 
@@ -37,7 +32,6 @@ POPE_PATH = {
     "popular": "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_VLM_COCO_adversarial/data/POPE/coco/coco_pope_popular.json",
     "adversarial": "/mnt/petrelfs/quxiaoye/yuzengqi/OUR_VLM_COCO_adversarial/data/POPE/coco/coco_pope_adversarial.json",
 }
-
 
 def parse_args():
     parser = argparse.ArgumentParser(description="POPE-Adv evaluation on LVLMs.")
@@ -63,7 +57,6 @@ def parse_args():
     args = parser.parse_args()
     return args
 
-
 def setup_seeds(seed):
     random.seed(seed)
     np.random.seed(seed)
@@ -71,7 +64,6 @@ def setup_seeds(seed):
 
     cudnn.benchmark = False
     cudnn.deterministic = True
-
 
 def print_acc(args, pred_list, label_list):
     pos = 1
@@ -112,7 +104,6 @@ def recorder(line, pred_list):
         pred_list.append(1)
     
     return pred_list
-
 
 pdb.set_trace = lambda: None
 
