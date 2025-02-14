@@ -3014,6 +3014,8 @@ class GenerationMixin:
                 log_odds = torch.log(probabilities / (1 - probabilities))
                 log_score = log_odds[0][output_label]
                 os.makedirs(os.path.dirname(save_path), exist_ok=True)
+                
+                # Note, replace this value with the score under meaningless input.
                 if head_comb == 0:
                     log_score = 0
                 with open(save_path, 'a') as file:

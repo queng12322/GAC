@@ -275,6 +275,7 @@ def main(args):
                 pdb.set_trace()
                 average_exact = total_exact / num_sample
                 average_f1 = total_f1 / num_sample
+                # Note, replace this value with the average F1 score under meaningless input.
                 if head_comb == 0:
                     average_f1 = 0
                 os.makedirs(os.path.dirname(game_theory_result_path), exist_ok=True)
