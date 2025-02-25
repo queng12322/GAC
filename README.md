@@ -95,7 +95,7 @@ Below is an overview of the key directories and files in this repository:
 
 ## Datasets and Model
 
-Here's where you can download datasets and model for our Experiment.
+The datasets and models we used are as follows.
 
 ### Datasets
 * sst2
