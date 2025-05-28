@@ -1,7 +1,7 @@
 # Cooperative or Competitive? Understanding the Interaction between Attention Heads From A Game Theory Perspective
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-g.svg)]()
-[![Arxiv](https://img.shields.io/badge/arXiv-2311.17911-B21A1B)]()
+[![Arxiv](https://img.shields.io/badge/arXiv-2505.17911-B21A1B)]()
 [![Hugging Face Transformers](https://img.shields.io/badge/%F0%9F%A4%97-Transformers-blue)]()
 
 
