@@ -1,5 +1,12 @@
 # Cooperative or Competitive? Understanding the Interaction between Attention Heads From A Game Theory Perspective
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-g.svg)]()
+[![Arxiv](https://img.shields.io/badge/arXiv-2311.17911-B21A1B)]()
+[![Hugging Face Transformers](https://img.shields.io/badge/%F0%9F%A4%97-Transformers-blue)]()
+
+
+This repository provides the official PyTorch implementation of the following paper: 
+
 ## Overview
 Despite the remarkable success of attention-based large language models (LLMs), the precise interaction mechanisms between attention heads remain poorly understood.
 In contrast to prevalent methods that focus on individual head contributions, we rigorously analyze the intricate interplay between attention heads by introducing a novel framework leveraging the Harsanyi dividend from cooperative game theory.
