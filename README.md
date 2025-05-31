@@ -16,6 +16,8 @@ This repository provides the official PyTorch implementation of the following pa
 > Yu Cheng<sup>2</sup><br>
 > <sup>1</sup>Huazhong University of Science and Technology, <sup>2</sup>Shanghai AI Laboratory<br>
 ## Overview
+<p align="center"><img src="./figure/game_framework.png" alt="teaser" style="width: 80%; height: auto;"></p>
+
 Despite the remarkable success of attention-based large language models (LLMs), the precise interaction mechanisms between attention heads remain poorly understood.
 In contrast to prevalent methods that focus on individual head contributions, we rigorously analyze the intricate interplay between attention heads by introducing a novel framework leveraging the Harsanyi dividend from cooperative game theory.
 Our analysis reveals that significant positive Harsanyi dividends are sparsely distributed across head combinations, 
@@ -142,3 +144,8 @@ The datasets and models we used are as follows.
 * [Qwen2.5-32B-Instruct
 ](https://huggingface.co/Qwen/Qwen2.5-32B-Instruct)
 * [llava-v1.6-mistral-7b-hf](https://huggingface.co/llava-hf/llava-v1.6-mistral-7b-hf)
+
+<!---## Citation
+If you find this work useful for your research, please cite [our paper]():
+```
+@-->
