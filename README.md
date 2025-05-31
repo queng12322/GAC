@@ -98,6 +98,19 @@ Run the following command to complete this process:
 bash evaluation.sh [augmentations] [dataset_names] [model_type] [model_path] [eval_task_type]
 ```
 
+### Arguments
+
+| Argument             | Example             | Description   |
+| -------------------- | ------------------- | ------------- |
+| `--ckpt_dir`    | `Llama-3.1-8B-Instruct` | Model address. |
+| `--calibrate`    | `1` | Whether to compute the Harsanyi dividend. |
+| `--dataset`    | `sst2` | The dataset to be evaluated. |
+| `--do_augmentation`    | `0` | Whether to use GAC. |
+| `--num_samples`    | `900` | Number of game theory samples from each dataset. |
+| `--output_dir`    | `/path/to/result` | Result output file. |
+| `--task_type`    | `multiple_choice` | Type of task to be evaluated. |
+| `--game_theory_result_path`    | `/path/to/intermediate_result` | Intermediate result output address for game theory. |
+
 ## Directory Structure
 
 Below is an overview of the key directories and files in this repository:
